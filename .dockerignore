@@ -1,0 +1,19 @@
+# Ignore any local environment files
+*.env
+
+# Python bytecodes
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Ignore logs
+*.log
+
+# Ignore any editor configurations
+.vscode/
+.idea/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
