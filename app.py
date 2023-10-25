@@ -41,5 +41,5 @@ if uploaded_file is not None:
 
     st.image(output, caption="Processed Image.", use_column_width=True)
 
-if __name__ == '__main__':
-    st.run()
+#if __name__ == '__main__':
+#    st.run()
