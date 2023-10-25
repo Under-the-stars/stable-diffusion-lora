@@ -22,3 +22,6 @@ if prompt:
 def img_gen(prompt):
     train = trained_model(prompt * 1, num_inference_steps=50, guidance_scale=8.0).images
     return train[0]
+    
+if _name_ == '_main_':
+    st.run()
