@@ -11,8 +11,8 @@ model_path = "model/pytorch_lora_weights.safetensors"
 pipe_base_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
 trained_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
 trained_model.unet.load_attn_procs(model_path)
-trained_model.to("cuda")
-pipe_base_model.to("cuda")
+#trained_model.to("cuda")
+#pipe_base_model.to("cuda")
 
 
 def process_image(img):
