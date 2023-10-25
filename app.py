@@ -7,7 +7,7 @@ from PIL import Image
 import numpy as np
 
 # Load model
-model_path = "model"
+model_path = "model/pytorch_lora_weights.safetensors"
 pipe_base_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
 trained_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
 trained_model.unet.load_attn_procs(model_path)
