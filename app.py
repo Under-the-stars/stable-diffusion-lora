@@ -1,27 +1,45 @@
+# streamlit_app.py
+
 import streamlit as st
 from diffusers import StableDiffusionPipeline
 import torch
+from PIL import Image
+import numpy as np
 
-st.title("Image Generator with LoRA")
-
-model_path = "/app/pytorch_lora_weights (1).safetensors"
-
+# Load model
+model_path = "model"
 pipe_base_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
-
 trained_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
 trained_model.unet.load_attn_procs(model_path)
 trained_model.to("cuda")
 pipe_base_model.to("cuda")
 
-prompt = st.text_input("Enter your prompt:")
 
-if prompt:
-    generated_img = img_gen(prompt)
-    st.image(generated_img, caption='Generated Image.', use_column_width=True)
+def process_image(img):
+    # Add code to preprocess the image as required by your model
+    # Convert the PIL Image to a PyTorch tensor, process it, etc.
+    # Then, use your model to predict and return the result.
+    # This is a placeholder, so you'll need to fill in the details.
+    tensor_image = torch.Tensor(np.array(img)).unsqueeze(0).to("cuda")
+    with torch.no_grad():
+        output = trained_model(tensor_image)
+    return output
 
-def img_gen(prompt):
-    train = trained_model(prompt * 1, num_inference_steps=50, guidance_scale=8.0).images
-    return train[0]
-    
-if _name_ == '_main_':
+
+st.title("Stable Diffusion Model Inference")
+
+uploaded_file = st.file_uploader("Upload an image...", type=["jpg", "png", "jpeg"])
+
+if uploaded_file is not None:
+    img = Image.open(uploaded_file)
+    st.image(img, caption="Uploaded Image.", use_column_width=True)
+
+    st.write("")
+    st.write("Predicting...")
+
+    output = process_image(img)
+
+    st.image(output, caption="Processed Image.", use_column_width=True)
+
+if __name__ == '__main__':
     st.run()
