@@ -1,7 +1,7 @@
+transformers
+accelerate
 streamlit~=1.27.2
-torch~=1.13.1
+torch~=2.1.0
 numpy~=1.26.1
 diffusers~=0.21.4
 Pillow~=10.1.0
-transformers
-accelerate
