@@ -6,14 +6,25 @@ import torch
 from PIL import Image
 import numpy as np
 
-# Load model
-model_path = "model/pytorch_lora_weights.safetensors"
-pipe_base_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
-trained_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
-trained_model.unet.load_attn_procs(model_path)
-#trained_model.to("cuda")
-#pipe_base_model.to("cuda")
+# # Load model
+# model_path = "model/pytorch_lora_weights.safetensors"
+# pipe_base_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
+# trained_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
+# trained_model.unet.load_attn_procs(model_path)
+# #trained_model.to("cuda")
+# #pipe_base_model.to("cuda")
 
+@st.cache
+def model_load():
+    # Load model
+    model_path = "model/pytorch_lora_weights.safetensors"
+    # pipe_base_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
+    trained_model = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
+    trained_model.unet.load_attn_procs(model_path)
+    # trained_model.to("cuda")
+    # pipe_base_model.to("cuda")
+    return trained_model
+trained_model=model_load()
 
 def process_image(img):
     # Add code to preprocess the image as required by your model
